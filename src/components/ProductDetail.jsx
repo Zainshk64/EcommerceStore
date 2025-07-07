@@ -16,6 +16,8 @@ export default function ProductDetail() {
 
   // 🛒 Pull product info & cart qty from Redux
   const product = productList.find((p) => p.id === Number(id));
+  console.log(product);
+
   const qty = useSelector(
     (state) =>
       state.cart.cartItems.find((i) => i.id === product.id)?.quantity || 1
@@ -39,8 +41,14 @@ export default function ProductDetail() {
   }
 
   const handleAddCart = (product) => {
+    // console.log(product);
+
     dispatch(addToCart(product));
   };
+
+  const cartItem = useSelector((state) =>
+    state.cart.cartItems.find((i) => i.id === product.id)
+  );
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-10 lg:py-16">
@@ -48,7 +56,7 @@ export default function ProductDetail() {
         {/* 🖼️ LEFT COLUMN – Images */}
         <div className="flex lg:flex-row flex-col ">
           {/* Thumbnails */}
-          <div className="flex p-5 bg-gray-50 mb-4 rounded-md mr-3 justify-center gap-3 flex-row lg:flex-col lg:mb-0 ">
+          <div className="flex p-2 bg-gray-50 mb-4 rounded-md mr-3 justify-center gap-3 flex-row lg:flex-col lg:mb-0 ">
             {transforms.map((tf, idx) => (
               <button
                 key={idx}
@@ -67,17 +75,17 @@ export default function ProductDetail() {
           </div>
 
           {/* Main image */}
-          <div className="relative mx-auto flex h-80 items-center justify-center overflow-hidden rounded-xl bg-gray-50 sm:h-96 w-full lg:h-[480px] lg:w-full">
+          <div className="relative mx-auto flex h-80 items-center justify-center overflow-hidden rounded-xl bg-gray-50 sm:h-96  lg:h-[480px] lg:w-full">
             <img
               src={product.image}
               alt={product.name}
-              className={`object-contain w-70 lg:w-90 duration-300 ${transforms[activeIdx]}`}
+              className={`object-contain  sm:w-70 lg:w-90 duration-300 ${transforms[activeIdx]}`}
             />
           </div>
         </div>
 
         {/* 📃 RIGHT COLUMN – Details */}
-        <div>
+        <div className="sm:w-130 md:w-full" >
           {/* Title & Reviews */}
           <h1 className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
             {product.name}
@@ -150,19 +158,23 @@ export default function ProductDetail() {
           </div>
 
           {/* Quantity, Wishlist & CTA */}
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-8 flex gap-2 sm:gap-3 sm:flex-row sm:items-center">
             {/* Quantity selector */}
             <div className="inline-flex items-center overflow-hidden rounded border sm:mr-4">
               <button
                 className="p-2 hover:bg-gray-50"
-                onClick={() => dispatch(decrementQty(product))}
+                onClick={() => {
+                  if (cartItem) dispatch(decrementQty(product));
+                }}
               >
                 <Minus size={16} />
               </button>
               <span className="px-4 py-2 text-sm font-medium">{qty}</span>
               <button
                 className="p-2 hover:bg-gray-50"
-                onClick={() => dispatch(incrementQty(product))}
+                onClick={() => {
+                  if (cartItem) dispatch(incrementQty(product));
+                }}
               >
                 <Plus size={16} />
               </button>
@@ -171,7 +183,7 @@ export default function ProductDetail() {
             {/* Buy Now button */}
             <button
               onClick={() => handleAddCart(product)}
-              className="inline-flex cursor-pointer flex-1 items-center justify-center gap-2 rounded bg-red-600 px-6 py-3 text-white transition-opacity hover:opacity-90"
+              className="inline-flex cursor-pointer sm:flex-1 items-center justify-center gap-2 rounded bg-red-600 px-6 py-3 text-white transition-opacity hover:opacity-90"
             >
               Buy Now
             </button>
@@ -193,8 +205,8 @@ export default function ProductDetail() {
           </div>
 
           {/* Logistics info */}
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            <div className="flex items-start gap-3 rounded-md border p-4">
+          <div className="mt-10 grid gap-4 w-full sm:grid-cols-2">
+            <div className="flex w-77 sm:w-full items-start gap-3 rounded-md border p-4">
               <Truck size={20} className="shrink-0" />
               <div>
                 <h3 className="font-medium">Free Delivery</h3>
@@ -203,7 +215,7 @@ export default function ProductDetail() {
                 </p>
               </div>
             </div>
-            <div className="flex items-start gap-3 rounded-md border p-4">
+            <div className="flex w-77 sm:w-full  items-start gap-3 rounded-md border p-4">
               <RotateCcw size={20} className="shrink-0" />
               <div>
                 <h3 className="font-medium">Return Delivery</h3>

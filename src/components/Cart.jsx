@@ -23,59 +23,81 @@ const Cart = () => {
       <DynamicBreadcrumbs />
       <h1 className="text-2xl font-bold mb-6">Shopping Cart</h1>
 
-      {/* Table Header */}
-      <div className="hidden md:grid grid-cols-5 font-semibold border-b py-3">
-        <span>Product</span>
-        <span>Price</span>
-        <span>Quantity</span>
-        <span>Subtotal</span>
-        <span>Remove</span>
+      {/* Responsive Table */}
+      <div className="overflow-auto md:overflow-visible">
+        <table className="w-full text-sm">
+          <thead className="hidden md:table-header-group font-semibold border-b">
+            <tr className="text-left">
+              <th className="py-3">Product</th>
+              <th className="py-3">Price</th>
+              <th className="py-3">Name</th>
+              <th className="py-3">Quantity</th>
+              <th className="py-3">Subtotal</th>
+              <th className="py-3">Remove</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {cartItems.length === 0 && (
+              <tr>
+                <td colSpan="5" className="text-center py-5">
+                  Your Cart Is Empty
+                </td>
+              </tr>
+            )}
+
+            {cartItems.map((item) => (
+              <tr
+                key={item.id}
+                className="block md:table-row border-b md:border-0 py-4 md:py-0"
+              >
+                <td className="flex items-center gap-3 py-3 md:table-cell">
+                  <img src={item.image} alt={item.name} className="w-14 h-14" />
+                </td>
+                <td>
+
+                  <span>{item.name}</span>
+                </td>
+
+                <td className="py-3 md:table-cell">${item.price}</td>
+
+                <td className="py-3 md:table-cell">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => dispatch(decrementQty(item))}
+                      className="border px-2"
+                    >
+                      -
+                    </button>
+                    <span>{item.quantity}</span>
+                    <button
+                      onClick={() => dispatch(incrementQty(item))}
+                      className="border px-2"
+                    >
+                      +
+                    </button>
+                  </div>
+                </td>
+
+                <td className="py-3 md:table-cell">
+                  ${item.price * item.quantity}
+                </td>
+
+                <td className="py-3 md:table-cell text-red-500 hover:text-red-700">
+                  <X
+                    onClick={() => dispatch(removeFromCart(item.id))}
+                    className="w-5 h-5 cursor-pointer"
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      <div>{cartItems.length === 0 && <div className="text-center my-5" >Your Cart Is Empty</div>}</div>
-
-      {/* Items */}
-      {cartItems.map((item) => (
-        <div
-          key={item.id}
-          className="grid grid-cols-2 md:grid-cols-5 items-center gap-4 border-b py-4 text-sm"
-        >
-          <div className="flex items-center gap-3">
-            <img src={item.image} alt={item.name} className="w-14 h-14" />
-            <span>{item.name}</span>
-          </div>
-          <span>${item.price}</span>
-
-          {/* Quantity */}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => dispatch(decrementQty(item.id))}
-              className="border px-2"
-            >
-              -
-            </button>
-            <span>{item.quantity}</span>
-            <button
-              onClick={() => dispatch(incrementQty(item))}
-              className="border px-2"
-            >
-              +
-            </button>
-          </div>
-
-          <span>${item.price * item.quantity}</span>
-
-          <span className="text-red-500 hover:text-red-700">
-            <X
-              onClick={() => dispatch(removeFromCart(item.id))}
-              className="w-5 cursor-pointer  h-5"
-            />
-          </span>
-        </div>
-      ))}
 
       {/* Bottom Buttons */}
       <div className="flex flex-col md:flex-row justify-between items-center mt-6 gap-4">
-        <Link to={"/shop"}>
+        <Link to="/shop">
           <button className="border cursor-pointer px-6 py-2 hover:bg-gray-100">
             View Shop
           </button>
@@ -85,8 +107,9 @@ const Cart = () => {
         </button>
       </div>
 
+      {/* Coupon & Summary */}
       <div className="flex flex-col md:flex-row justify-between my-10 gap-8">
-        <div className="gap-4 w-full md:w-1/2">
+        <div className="gap-4 w-full md:w-1/2 flex flex-col sm:flex-row">
           <input
             type="text"
             placeholder="Coupon Code"
@@ -112,11 +135,11 @@ const Cart = () => {
             <span>${subtotal}</span>
           </div>
           <button
-            className={`w-full mt-4  text-white py-2  ${
-              cartItems.length === 0
-                ? "bg-gray-300 cursor-not-allowed hover:bg-gray-200"
-                : "bg-red-500 cursor-pointer hover:bg-red-600 "
-            } `}
+            className={`w-full mt-4 text-white py-2 rounded ${{
+              true: "bg-red-500 hover:bg-red-600",
+              false: "bg-gray-300 cursor-not-allowed hover:bg-gray-200",
+            }[cartItems.length > 0]}`}
+            disabled={cartItems.length === 0}
           >
             Proceed to checkout
           </button>
