@@ -1,6 +1,6 @@
 import React from 'react'
 import secondbanner from '../assets/secondBanner.png'
-const Secondbanner = () => {
+const SecondBanner = () => {
   return (
     <div className="px-6 py-10 md:px-16 lg:px-24 xl:px-32">
         <div className='bg-black px-5 py-5 md:py-0 md:px-20 flex flex-col md:flex-row  md:justify-center items-center text-white'>
@@ -42,4 +42,4 @@ const Secondbanner = () => {
   )
 }
 
-export default Secondbanner
+export default SecondBanner
