@@ -49,7 +49,7 @@ const cartCount = useSelector((state) => state.cart.cartItems.length);
             <input
               type="text"
               placeholder="Search products"
-              className="w-full pl-10 pr-3 py-2 rounded-md border border-gray-400 placeholder-gray-500 focus:outline-none text-sm"
+              className=" w-44 lg:w-full pl-10 pr-3 py-2 rounded-md border border-gray-400 placeholder-gray-500 focus:outline-none text-sm"
             />
           </div>
           <div className="hidden md:flex gap-2">

@@ -9,6 +9,7 @@ import {
 import { toggleWishlist } from "../features/wishlist/wishlistSlice"; // 👉 adjust the correct import path
 import { Heart, Minus, Plus, Star, Truck, RotateCcw } from "lucide-react";
 import { productList } from "../data/data";
+import DynamicBreadcrumbs from "./DynamicBread";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -52,17 +53,18 @@ export default function ProductDetail() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-10 lg:py-16">
+      {/* <DynamicBreadcrumbs/> */}
       <div className="grid gap-8 lg:grid-cols-2 lg:gap-14">
         {/* 🖼️ LEFT COLUMN – Images */}
         <div className="flex lg:flex-row flex-col ">
           {/* Thumbnails */}
-          <div className="flex p-2 bg-gray-50 mb-4 rounded-md mr-3 justify-center gap-3 flex-row lg:flex-col lg:mb-0 ">
+          <div className="flex p-2  mb-4 rounded-md mr-3 justify-center gap-3 flex-row lg:flex-col lg:mb-0 ">
             {transforms.map((tf, idx) => (
               <button
                 key={idx}
                 onClick={() => setActiveIdx(idx)}
-                className={`relative h-20 w-20 overflow-hidden rounded-lg border transition-transform duration-150 hover:scale-105 focus:outline-none ${
-                  activeIdx === idx ? "border-gray-800" : "border-gray-200"
+                className={`relative sm:h-20 sm:w-20 overflow-hidden cursor-pointer rounded-lg border transition-transform duration-150 hover:scale-105 hover:-translate-x-3 trans focus:outline-none ${
+                  activeIdx === idx ? "border-gray-300  " : "border-gray-200 bg-gray-100"
                 }`}
               >
                 <img
@@ -75,17 +77,17 @@ export default function ProductDetail() {
           </div>
 
           {/* Main image */}
-          <div className="relative mx-auto flex h-80 items-center justify-center overflow-hidden rounded-xl bg-gray-50 sm:h-96 a lg:h-[480px] lg:w-full">
+          <div className="relative flex h-70 w-80 mx-auto items-center justify-center overflow-hidden rounded-md bg-gray-100 sm:h-96 lg:h-[480px] lg:w-full">
             <img
               src={product.image}
               alt={product.name}
-              className={`object-contain  sm:w-70 lg:w-90 duration-300 ${transforms[activeIdx]}`}
+              className={`object-contain w-[200px] lg:w-full  duration-300 ${transforms[activeIdx]}`}
             />
           </div>
         </div>
 
         {/* 📃 RIGHT COLUMN – Details */}
-        <div className="sm:w-130 md:w-full" >
+        <div className="md:w-full" >
           {/* Title & Reviews */}
           <h1 className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
             {product.name}
@@ -116,14 +118,13 @@ export default function ProductDetail() {
           </p>
 
           {/* Description */}
-          <p className="mt-4 max-w-prose text-gray-600">
+          <p className="mt-4 max-w-sm text-gray-600">
             {product.desc ||
               "PlayStation 5 Controller skin ‑ high‑quality vinyl with air‑channel adhesive for easy bubble‑free install & mess‑free removal. Pressure sensitive."}
           </p>
 
           {/* Options – Colours & Size (static demo) */}
-          <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center">
-            {/* Colours */}
+          <div className="mt-6  flex flex-col gap-4 sm:flex-row sm:items-center">
             <div className="flex items-center gap-3">
               <span className="min-w-[72px] font-medium">Colours:</span>
               <div className="flex gap-2">
@@ -136,7 +137,6 @@ export default function ProductDetail() {
               </div>
             </div>
 
-            {/* Size */}
             <div className="flex items-center gap-3">
               <span className="min-w-[48px] font-medium">Size:</span>
               <div className="flex gap-2">
@@ -159,7 +159,6 @@ export default function ProductDetail() {
 
           {/* Quantity, Wishlist & CTA */}
           <div className="mt-8 flex gap-2 sm:gap-3 sm:flex-row sm:items-center">
-            {/* Quantity selector */}
             <div className="inline-flex items-center overflow-hidden rounded border sm:mr-4">
               <button
                 className="p-2 hover:bg-gray-50"
@@ -180,7 +179,6 @@ export default function ProductDetail() {
               </button>
             </div>
 
-            {/* Buy Now button */}
             <button
               onClick={() => handleAddCart(product)}
               className="inline-flex cursor-pointer sm:flex-1 items-center justify-center gap-2 rounded bg-red-600 px-6 py-3 text-white transition-opacity hover:opacity-90"
@@ -188,7 +186,6 @@ export default function ProductDetail() {
               Buy Now
             </button>
 
-            {/* Wishlist */}
             <button
               className={`ml-2 rounded-full p-3 ring-1 cursor-pointer ring-gray-200 hover:bg-gray-50`}
               onClick={() => dispatch(toggleWishlist(product))}

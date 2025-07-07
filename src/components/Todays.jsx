@@ -63,14 +63,14 @@ const Todays = () => {
   
 
   return (
-    <div className="px-6  py-10 md:px-16 lg:px-24 xl:px-32">
+    <div className="px-6 py-10 md:px-16 lg:px-24 xl:px-32">
       <div className="flex items-center gap-2">
         <div className="w-[10px] h-[20px] bg-red-600 rounded-sm"></div>
         <h2 className="text-red-600 font-medium text-sm">Today's</h2>
       </div>
 
       <div className="py-6 flex flex-col md:flex-row md:justify-between md:items-center gap-6">
-        <div className="flex gap-6 items-center" >
+        <div className="flex flex-col md:flex-row gap-6 items-center" >
           <h1 className="font-medium text-2xl">Flash Sales</h1>
           <div className="flex items-center gap-4 text-center">
             <div>
