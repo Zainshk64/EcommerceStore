@@ -75,7 +75,7 @@ export default function ProductDetail() {
           </div>
 
           {/* Main image */}
-          <div className="relative mx-auto flex h-80 items-center justify-center overflow-hidden rounded-xl bg-gray-50 sm:h-96  lg:h-[480px] lg:w-full">
+          <div className="relative mx-auto flex h-80 items-center justify-center overflow-hidden rounded-xl bg-gray-50 sm:h-96 a lg:h-[480px] lg:w-full">
             <img
               src={product.image}
               alt={product.name}
