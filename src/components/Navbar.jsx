@@ -10,7 +10,6 @@ const Navbar = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("token");
 
   const navLink = [
@@ -18,6 +17,13 @@ const Navbar = () => {
     { link: "About", path: "/about" },
     { link: "Contact", path: "/contact" },
     { link: "Sign Up", path: "/signup" },
+  ];
+   const userLinks = [
+    { link: "Manage My Account", path: "/myaccount" },
+    { link: "My Orders", path: "/" },
+    { link: "My Cancellations", path: "/" },
+    { link: "My Reviews", path: "/" },
+
   ];
 
   const cartCount = useSelector((state) => state.cart.cartItems.length);
@@ -37,6 +43,14 @@ const Navbar = () => {
     localStorage.clear();
     navigate("/signup");
   };
+
+  // const User = JSON.parse(localStorage.getItem("user"));
+  // console.log(User.firstName);
+  
+  const UserData = JSON.parse(localStorage.getItem("user"));
+  // console.log(UserData.firstName);
+  
+
 
 
   return (
@@ -99,9 +113,9 @@ const Navbar = () => {
                   {dropdownOpen && (
                     <div className="absolute right-0 top-8 bg-white border shadow-lg rounded w-48 z-50 text-sm">
                       <ul className="py-2">
-                        <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+                        <Link  to={'/myaccount'} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
                           <User size={16} /> Manage My Account
-                        </li>
+                        </Link>
                         <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
                           <ListOrdered size={16} /> My Orders
                         </li>

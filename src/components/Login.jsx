@@ -76,89 +76,89 @@ const Login = () => {
   const [EmailModal, setEmailModal] = useState(false);
   const [OtpModal, setOtpModal] = useState(false);
 
-const [resetPasswordModal, setResetPasswordModal] = useState(false);
-const [newPassword, setNewPassword] = useState('');
-const [showPassword, setShowPassword] = useState(false);
-
+  const [resetPasswordModal, setResetPasswordModal] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSendOtp = async (e) => {
-  e.preventDefault();
-  try {
-    const res = await fetch("http://localhost:3000/api/auth/forgot-password", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
+    e.preventDefault();
+    try {
+      const res = await fetch(
+        "http://localhost:3000/api/auth/forgot-password",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        }
+      );
 
-    const data = await res.json();
-    if (res.ok) {
-      toast.success(data.message); // "OTP sent to email"
-      setEmailModal(false);
-      setOtpModal(true);
-    } else {
-      toast.error(data.message || "Failed to send OTP");
+      const data = await res.json();
+      if (res.ok) {
+        toast.success(data.message); // "OTP sent to email"
+        setEmailModal(false);
+        setOtpModal(true);
+      } else {
+        toast.error(data.message || "Failed to send OTP");
+      }
+    } catch (err) {
+      toast.error("Something went wrong!");
     }
-  } catch (err) {
-    toast.error("Something went wrong!");
-  }
-};
+  };
 
-const handleVerifyOtp = async (e) => {
-  e.preventDefault();
-  try {
-    const res = await fetch("http://localhost:3000/api/auth/verify-otp", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, otp }),
-    });
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("http://localhost:3000/api/auth/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp }),
+      });
 
-    const data = await res.json();
-    if (res.ok) {
-      toast.success(data.message); // "OTP verified"
-      setResetToken(data.resetToken);
-      setOtpModal(false);
-      setResetPasswordModal(true); 
-      // You may redirect to reset-password screen now or go back to login state
-    } else {
-      toast.error(data.message || "OTP verification failed");
+      const data = await res.json();
+      if (res.ok) {
+        toast.success(data.message); // "OTP verified"
+        setResetToken(data.resetToken);
+        setOtpModal(false);
+        setResetPasswordModal(true);
+        // You may redirect to reset-password screen now or go back to login state
+      } else {
+        toast.error(data.message || "OTP verification failed");
+      }
+    } catch (err) {
+      toast.error("Something went wrong!");
     }
-  } catch (err) {
-    toast.error("Something went wrong!");
-  }
-};
+  };
 
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
 
-const handleResetPassword = async (e) => {
-  e.preventDefault();
-
-  if (!newPassword || newPassword.length < 6) {
-    return toast.error("Password must be at least 6 characters long");
-  }
-
-  try {
-    const res = await fetch("http://localhost:3000/api/auth/reset-password", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        resetToken,
-        newPassword,
-      }),
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      toast.success(data.message || "Password reset successful");
-      setResetPasswordModal(false);
-      setNewPassword("");
-    } else {
-      toast.error(data.message || "Failed to reset password");
+    if (!newPassword || newPassword.length < 6) {
+      return toast.error("Password must be at least 6 characters long");
     }
-  } catch (err) {
-    toast.error("Something went wrong");
-  }
-};
 
+    try {
+      const res = await fetch("http://localhost:3000/api/auth/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          resetToken,
+          newPassword,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success(data.message || "Password reset successful");
+        setResetPasswordModal(false);
+        setNewPassword("");
+      } else {
+        toast.error(data.message || "Failed to reset password");
+      }
+    } catch (err) {
+      toast.error("Something went wrong");
+    }
+  };
 
   return (
     <div className="py-10">
@@ -225,39 +225,43 @@ const handleResetPassword = async (e) => {
       )}
 
       {resetPasswordModal && (
-  <div className="fixed top-0 inset-0 z-50 flex justify-center items-center bg-black/10 h-screen">
-    <div className="bg-white shadow-lg rounded-md relative md:w-1/3 p-5">
-      <div className="absolute right-6">
-        <X className="cursor-pointer" onClick={() => setResetPasswordModal(false)} />
-      </div>
-      <h1 className="text-center text-2xl font-medium my-5">Set New Password</h1>
-      <form onSubmit={handleResetPassword}>
-        <div className="relative mb-4">
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="New Password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            className="pb-3 w-full focus:outline-none border-b pr-10"
-            required
-          />
-          <span
-            className="absolute right-2 top-2 cursor-pointer text-sm text-gray-500"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? "Hide" : "Show"}
-          </span>
+        <div className="fixed top-0 inset-0 z-50 flex justify-center items-center bg-black/10 h-screen">
+          <div className="bg-white shadow-lg rounded-md relative md:w-1/3 p-5">
+            <div className="absolute right-6">
+              <X
+                className="cursor-pointer"
+                onClick={() => setResetPasswordModal(false)}
+              />
+            </div>
+            <h1 className="text-center text-2xl font-medium my-5">
+              Set New Password
+            </h1>
+            <form onSubmit={handleResetPassword}>
+              <div className="relative mb-4">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="New Password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="pb-3 w-full focus:outline-none border-b pr-10"
+                  required
+                />
+                <span
+                  className="absolute right-2 top-2 cursor-pointer text-sm text-gray-500"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </span>
+              </div>
+              <input
+                type="submit"
+                value="Reset Password"
+                className="p-2 w-full active:scale-105 bg-red-500 cursor-pointer text-white rounded-lg"
+              />
+            </form>
+          </div>
         </div>
-        <input
-          type="submit"
-          value="Reset Password"
-          className="p-2 w-full active:scale-105 bg-red-500 cursor-pointer text-white rounded-lg"
-        />
-      </form>
-    </div>
-  </div>
-)}
-
+      )}
 
       <div className="flex p-5 lg:flex-row flex-col justify-evenly">
         <div className="sm:w-1/2 mx-auto md:w-3/5 ">

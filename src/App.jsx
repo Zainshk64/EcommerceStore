@@ -10,6 +10,7 @@ import CartPage from "./pages/CartPage";
 import WishlistPage from "./pages/WishlistPage";
 import ItemDetail from "./pages/ItemDetail";
 import { Toaster } from "react-hot-toast";
+import AccountPage from "./pages/AccountPage";
 
 // 🔁 ScrollToTop on route change
 function ScrollToTop() {
@@ -32,6 +33,7 @@ const AppRoutes = () => {
         <Route path="/signup" element={<LoginPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/wishlist" element={<WishlistPage />} />
+        <Route path="/myaccount" element={<AccountPage/>} />
         <Route path="/product/:id" element={<ItemDetail />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
