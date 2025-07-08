@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice";
 import { toggleWishlist } from "../features/wishlist/wishlistSlice";
 import { Link } from "react-router-dom";
-
+import toast from "react-hot-toast";
 
 const Todays = () => {
   // 👇 Change this date to update the timer target
@@ -51,16 +51,26 @@ const Todays = () => {
   }, [targetTime]);
 
   const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
 
   const handleAddCart = (product) => {
-    dispatch(addToCart(product));
+    if (!token) {
+      toast.error("Login First!");
+    } else {
+      dispatch(addToCart(product));
+      toast.success(`${product.name} added in Cart`);
+    }
   };
   const handleWishlist = (product) => {
-    dispatch(toggleWishlist(product));
+    if (!token) {
+      toast.error("Login First!");
+    } else {
+      dispatch(toggleWishlist(product));
+      toast.success(`${product.name} add to Favorite`);
+    }
   };
 
-    const bestProduct = productList.filter((item) => item.cat === "Sales");
-  
+  const bestProduct = productList.filter((item) => item.cat === "Sales");
 
   return (
     <div className="px-6 py-10 md:px-16 lg:px-24 xl:px-32">
@@ -70,7 +80,7 @@ const Todays = () => {
       </div>
 
       <div className="py-6 flex flex-col md:flex-row md:justify-between md:items-center gap-6">
-        <div className="flex flex-col md:flex-row gap-6 items-center" >
+        <div className="flex flex-col md:flex-row gap-6 items-center">
           <h1 className="font-medium text-2xl">Flash Sales</h1>
           <div className="flex items-center gap-4 text-center">
             <div>
@@ -108,84 +118,84 @@ const Todays = () => {
         </div>
       </div>
 
-
-         <Swiper
-              modules={[Navigation, Pagination]}
-              spaceBetween={20}
-              slidesPerView={1}
-              breakpoints={{
-                640: { slidesPerView: 2 },
-                768: { slidesPerView: 3 },
-                1024: { slidesPerView: 4 },
-              }}
-              navigation={{
-                prevEl: ".swiper-button-prev-custom1",
-                nextEl: ".swiper-button-next-custom1",
-              }}
-              pagination={{ clickable: true }}
-              className="!pb-12"
-            >
-              {bestProduct.map((product) => (
-                <SwiperSlide key={product.id}>
-                  <Link to={`/product/${product.id}`} >
-                  
-
-                  <div className="rounded-xl transition  bg-white">
-                    <div className="relative group overflow-hidden bg-gray-100  w-full  h-60 flex items-center justify-center">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="object-contain max-h-32"
-                      />
-                      <div className="absolute top-2 right-2 flex-col flex gap-2">
-                        <div className="p-2 bg-white rounded-full">
-                          <Heart
-
-                            onClick={() => handleWishlist(product)}
-                            className="w-5 h-5 text-gray-600 hover:text-red-500 cursor-pointer"
-                          />
-                        </div>
-                        <div className="p-2 bg-white rounded-full">
-                          <Eye className="w-5 h-5 text-gray-600 hover:text-blue-500 cursor-pointer" />
-                        </div>
-                      </div>
-                      {product.oldPrice && (
-                <span className="absolute top-2 left-2 text-xs bg-red-500 text-white px-2 py-1 rounded-full">
-                  -{Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)}%
-                </span>
-              )}
-                      <div
-                        onClick={() => handleAddCart(product)}
-                        className="absolute bottom-0 p-2 translate-y-12 group-hover:translate-y-0 transition-all duration-300 cursor-pointer bg-black w-full text-center text-white"
-                      >
-                        Add to cart
-                      </div>
-                    </div>
-      
-                    <div className="mt-4">
-                      <h3 className="text-sm font-medium text-gray-800">
-                        {product.name}
-                      </h3>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="text-red-500 font-semibold">
-                          ${product.price}
-                        </span>
-                        {product.oldPrice && (
-                          <span className="text-gray-400 line-through text-sm">
-                            ${product.oldPrice}
-                          </span>
-                        )}
-                      </div>
-                      <div className="text-yellow-400 text-sm mt-1">
-                        ★★★★★ <span className="text-gray-500">(65)</span>
-                      </div>
-                    </div>
+      <Swiper
+        modules={[Navigation, Pagination]}
+        spaceBetween={20}
+        slidesPerView={1}
+        breakpoints={{
+          640: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
+        }}
+        navigation={{
+          prevEl: ".swiper-button-prev-custom1",
+          nextEl: ".swiper-button-next-custom1",
+        }}
+        pagination={{ clickable: true }}
+        className="!pb-12"
+      >
+        {bestProduct.map((product) => (
+          <SwiperSlide key={product.id}>
+            <div className="rounded-xl transition  bg-white">
+              <div className="relative group overflow-hidden bg-gray-100  w-full  h-60 flex items-center justify-center">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="object-contain max-h-32"
+                />
+                <div className="absolute top-2 right-2 flex-col flex gap-2">
+                  <div className="p-2 bg-white rounded-full">
+                    <Heart
+                      onClick={() => handleWishlist(product)}
+                      className="w-5 h-5 text-gray-600 hover:text-red-500 cursor-pointer"
+                    />
                   </div>
-                  </Link>
+                  <div className="p-2 bg-white rounded-full">
+                    <Link to={`/product/${product.id}`}>
+                      <Eye className="w-5 h-5 text-gray-600 hover:text-blue-500 cursor-pointer" />
+                    </Link>
+                  </div>
+                </div>
+                {product.oldPrice && (
+                  <span className="absolute top-2 left-2 text-xs bg-red-500 text-white px-2 py-1 rounded-full">
+                    -
+                    {Math.round(
+                      ((product.oldPrice - product.price) / product.oldPrice) *
+                        100
+                    )}
+                    %
+                  </span>
+                )}
+                <div
+                  onClick={() => handleAddCart(product)}
+                  className="absolute bottom-0 p-2 translate-y-12 group-hover:translate-y-0 transition-all duration-300 cursor-pointer bg-black w-full text-center text-white"
+                >
+                  Add to cart
+                </div>
+              </div>
 
-                </SwiperSlide>
-              ))}
-            </Swiper>
+              <div className="mt-4">
+                <h3 className="text-sm font-medium text-gray-800">
+                  {product.name}
+                </h3>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="text-red-500 font-semibold">
+                    ${product.price}
+                  </span>
+                  {product.oldPrice && (
+                    <span className="text-gray-400 line-through text-sm">
+                      ${product.oldPrice}
+                    </span>
+                  )}
+                </div>
+                <div className="text-yellow-400 text-sm mt-1">
+                  ★★★★★ <span className="text-gray-500">(65)</span>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };

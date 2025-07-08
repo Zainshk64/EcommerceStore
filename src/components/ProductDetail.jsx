@@ -10,6 +10,7 @@ import { toggleWishlist } from "../features/wishlist/wishlistSlice"; // 👉 adj
 import { Heart, Minus, Plus, Star, Truck, RotateCcw } from "lucide-react";
 import { productList } from "../data/data";
 import DynamicBreadcrumbs from "./DynamicBread";
+import toast from "react-hot-toast";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -40,12 +41,26 @@ export default function ProductDetail() {
       </div>
     );
   }
+  const token = localStorage.getItem("token");
 
   const handleAddCart = (product) => {
     // console.log(product);
 
-    dispatch(addToCart(product));
+    if (!token) {
+      toast.error("Login First!");
+    } else {
+      dispatch(addToCart(product));
+      toast.success(`${product.name} add to Favorite`);
+    }
   };
+    const handleWishlist = (product) => {
+      if (!token) {
+        toast.error("Login First!");
+      } else {
+        dispatch(toggleWishlist(product));
+        toast.success(`${product.name} add to Favorite`);
+      }
+    };
 
   const cartItem = useSelector((state) =>
     state.cart.cartItems.find((i) => i.id === product.id)
@@ -53,18 +68,17 @@ export default function ProductDetail() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-10 lg:py-16">
-      {/* <DynamicBreadcrumbs/> */}
-      <div className="grid gap-8 lg:grid-cols-2 lg:gap-14">
-        {/* 🖼️ LEFT COLUMN – Images */}
+      <div className="grid gap-8 md:grid-cols-2 lg:gap-14">
         <div className="flex lg:flex-row flex-col ">
-          {/* Thumbnails */}
           <div className="flex p-2  mb-4 rounded-md mr-3 justify-center gap-3 flex-row lg:flex-col lg:mb-0 ">
             {transforms.map((tf, idx) => (
               <button
                 key={idx}
                 onClick={() => setActiveIdx(idx)}
                 className={`relative sm:h-20 sm:w-20 overflow-hidden cursor-pointer rounded-lg border transition-transform duration-150 hover:scale-105 hover:-translate-x-3 trans focus:outline-none ${
-                  activeIdx === idx ? "border-gray-300  " : "border-gray-200 bg-gray-100"
+                  activeIdx === idx
+                    ? "border-gray-300  "
+                    : "border-gray-200 bg-gray-100"
                 }`}
               >
                 <img
@@ -76,7 +90,6 @@ export default function ProductDetail() {
             ))}
           </div>
 
-          {/* Main image */}
           <div className="relative flex h-70 w-80 mx-auto items-center justify-center overflow-hidden rounded-md bg-gray-100 sm:h-96 lg:h-[480px] lg:w-full">
             <img
               src={product.image}
@@ -86,9 +99,7 @@ export default function ProductDetail() {
           </div>
         </div>
 
-        {/* 📃 RIGHT COLUMN – Details */}
-        <div className="md:w-full" >
-          {/* Title & Reviews */}
+        <div className="md:w-full">
           <h1 className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
             {product.name}
           </h1>
@@ -188,7 +199,7 @@ export default function ProductDetail() {
 
             <button
               className={`ml-2 rounded-full p-3 ring-1 cursor-pointer ring-gray-200 hover:bg-gray-50`}
-              onClick={() => dispatch(toggleWishlist(product))}
+              onClick={() => handleWishlist(product)}
               aria-label="Add to wishlist"
             >
               <Heart

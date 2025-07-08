@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import CartPage from "./pages/CartPage";
 import WishlistPage from "./pages/WishlistPage";
 import ItemDetail from "./pages/ItemDetail";
+import { Toaster } from "react-hot-toast";
 
 // 🔁 ScrollToTop on route change
 function ScrollToTop() {
@@ -41,6 +42,7 @@ const AppRoutes = () => {
 const App = () => {
   return (
     <BrowserRouter>
+    <Toaster />
       <AppRoutes />
     </BrowserRouter>
   );

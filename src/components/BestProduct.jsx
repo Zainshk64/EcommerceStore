@@ -10,14 +10,23 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice";
 import { toggleWishlist } from "../features/wishlist/wishlistSlice";
 import { productList } from "../data/data";
+import toast from "react-hot-toast";
 
 const BestProduct = () => {
   const dispatch = useDispatch();
+  const token = localStorage.getItem('token')
+  
 
   const handleAddCart = (product) => {
+    if(!token) {
+      toast.error('Login first!')
+    }
     dispatch(addToCart(product));
   };
   const handleWishlist = (product) => {
+    if(!token) {
+      toast.error('Login first!')
+    }
     dispatch(toggleWishlist(product));
   };
 
