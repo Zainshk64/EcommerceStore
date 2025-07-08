@@ -6,7 +6,6 @@ import React from 'react'
 const WishlistPage = () => {
   return (
     <Layout>
-      
         <Wishlist/>
         <BestProduct/>
     </Layout>

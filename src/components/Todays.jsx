@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { productList } from "../data/data";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice";
 import { toggleWishlist } from "../features/wishlist/wishlistSlice";
 import { Link } from "react-router-dom";
@@ -61,15 +61,23 @@ const Todays = () => {
       toast.success(`${product.name} added in Cart`);
     }
   };
-  const handleWishlist = (product) => {
-    if (!token) {
-      toast.error("Login First!");
-    } else {
-      dispatch(toggleWishlist(product));
-      toast.success(`${product.name} add to Favorite`);
-    }
-  };
+  const wishlist = useSelector((state) => state.wishlist.wishlist);
+const handleWishlist = (product) => {
+  if (!token) {
+    toast.error("Login First!");
+    return;
+  }
 
+  const exists = wishlist.some((item) => item.id === product.id);
+
+  dispatch(toggleWishlist(product));
+
+  if (exists) {
+    toast(`${product.name} removed from Favourite`);
+  } else {
+    toast.success(`${product.name} added to Favourite`);
+  }
+};
   const bestProduct = productList.filter((item) => item.cat === "Sales");
 
   return (

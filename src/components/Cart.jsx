@@ -24,72 +24,71 @@ const Cart = () => {
       <h1 className="text-2xl font-bold mb-6">Shopping Cart</h1>
 
       {/* Responsive Table */}
-<div className="overflow-x-auto scrollbar-hide">
-  <table className="min-w-[700px] w-full text-sm">
-    <thead className="font-semibold border-b bg-gray-50">
-      <tr className="text-left text-gray-700">
-        <th className="py-3 px-4 whitespace-nowrap">Product</th>
-        <th className="py-3 px-4 whitespace-nowrap">Name</th>
-        <th className="py-3 px-4 whitespace-nowrap">Price</th>
-        <th className="py-3 px-4 whitespace-nowrap">Quantity</th>
-        <th className="py-3 px-4 whitespace-nowrap">Subtotal</th>
-        <th className="py-3 px-4 whitespace-nowrap">Remove</th>
-      </tr>
-    </thead>
+      <div className="overflow-x-auto scrollbar-hide">
+        <table className="min-w-[700px] w-full text-sm">
+          <thead className="font-semibold border-b bg-gray-50">
+            <tr className="text-left text-gray-700">
+              <th className="py-3 px-4 whitespace-nowrap">Product</th>
+              <th className="py-3 px-4 whitespace-nowrap">Name</th>
+              <th className="py-3 px-4 whitespace-nowrap">Price</th>
+              <th className="py-3 px-4 whitespace-nowrap">Quantity</th>
+              <th className="py-3 px-4 whitespace-nowrap">Subtotal</th>
+              <th className="py-3 px-4 whitespace-nowrap">Remove</th>
+            </tr>
+          </thead>
 
-    <tbody>
-      {cartItems.length === 0 && (
-        <tr>
-          <td colSpan="6" className="text-center py-5">
-            Your Cart Is Empty
-          </td>
-        </tr>
-      )}
+          <tbody>
+            {cartItems.length === 0 && (
+              <tr>
+                <td colSpan="6" className="text-center py-5">
+                  Your Cart Is Empty
+                </td>
+              </tr>
+            )}
 
-      {cartItems.map((item) => (
-        <tr
-          key={item.id}
-          className="border-b hover:bg-gray-50 transition-colors"
-        >
-          <td className="py-3 px-4">
-            <img
-              src={item.image}
-              alt={item.name}
-              className="w-14 h-14 object-contain"
-            />
-          </td>
-          <td className="py-3 px-4 whitespace-nowrap">{item.name}</td>
-          <td className="py-3 px-4">${item.price}</td>
-          <td className="py-3 px-4">
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => dispatch(decrementQty(item))}
-                className="border px-2 py-1 text-sm"
+            {cartItems.map((item) => (
+              <tr
+                key={item.id}
+                className="border-b hover:bg-gray-50 transition-colors"
               >
-                -
-              </button>
-              <span>{item.quantity}</span>
-              <button
-                onClick={() => dispatch(incrementQty(item))}
-                className="border px-2 py-1 text-sm"
-              >
-                +
-              </button>
-            </div>
-          </td>
-          <td className="py-3 px-4">${item.price * item.quantity}</td>
-          <td className="py-3 px-4 text-red-500 hover:text-red-700">
-            <X
-              onClick={() => dispatch(removeFromCart(item.id))}
-              className="w-5 h-5 cursor-pointer"
-            />
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
-
+                <td className="py-3 px-4">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-14 h-14 object-contain"
+                  />
+                </td>
+                <td className="py-3 px-4 whitespace-nowrap">{item.name}</td>
+                <td className="py-3 px-4">${item.price}</td>
+                <td className="py-3 px-4">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => dispatch(decrementQty(item))}
+                      className="border px-2 py-1 text-sm"
+                    >
+                      -
+                    </button>
+                    <span>{item.quantity}</span>
+                    <button
+                      onClick={() => dispatch(incrementQty(item))}
+                      className="border px-2 py-1 text-sm"
+                    >
+                      +
+                    </button>
+                  </div>
+                </td>
+                <td className="py-3 px-4">${item.price * item.quantity}</td>
+                <td className="py-3 px-4 text-red-500 hover:text-red-700">
+                  <X
+                    onClick={() => dispatch(removeFromCart(item.id))}
+                    className="w-5 h-5 cursor-pointer"
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* Bottom Buttons */}
       <div className="flex flex-col md:flex-row justify-between items-center mt-6 gap-4">
@@ -131,13 +130,16 @@ const Cart = () => {
             <span>${subtotal}</span>
           </div>
           <button
-            className={`w-full mt-4 text-white py-2 rounded ${{
-              true: "bg-red-500 hover:bg-red-600",
-              false: "bg-gray-300 cursor-not-allowed hover:bg-gray-200",
-            }[cartItems.length > 0]}`}
+            className={`w-full mt-4 text-white py-2 rounded ${
+              {
+                true: "bg-red-500 hover:bg-red-600",
+                false: "bg-gray-300 cursor-not-allowed hover:bg-gray-200",
+              }[cartItems.length > 0]
+            }`}
             disabled={cartItems.length === 0}
           >
-            Proceed to checkout
+            <Link to={"/cart/checkout"}
+             >Proceed to checkout</Link>
           </button>
         </div>
       </div>
