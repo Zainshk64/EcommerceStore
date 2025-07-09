@@ -12,7 +12,8 @@ import sale5 from "../assets/sale5.png";
 
 export const productList = [
   {
-    id: '686b763afff2f89664393bef',
+    id:1,
+    _id: '686b763afff2f89664393bef',
     name: "The north coat",
     image: north,
     price: 260,
@@ -22,7 +23,8 @@ export const productList = [
     size : 'M'
   },
   {
-    id: '686b763bfff2f89664393bf7',
+    id:2,
+    _id: '686b763bfff2f89664393bf7',
     name: "Gucci duffle bag",
     image: bag,
     price: 960,
@@ -32,7 +34,8 @@ export const productList = [
 
   },
   {
-    id: '686b763bfff2f89664393bfa',
+    id:3,
+    _id: '686b763bfff2f89664393bfa',
     name: "RGB liquid CPU Cooler",
     image: speakernew,
     price: 160,
@@ -42,7 +45,8 @@ export const productList = [
 
   },
   {
-    id: '686b763bfff2f89664393bfd',
+    id:4,
+    _id: '686b763bfff2f89664393bfd',
     name: "Small BookSelf",
     image: table,
     price: 360,
@@ -52,7 +56,8 @@ export const productList = [
 
   },
   {
-    id: '686b763cfff2f89664393c00',
+    id:5,
+    _id: '686b763cfff2f89664393c00',
     name: "New Product",
     image: north,
     price: 180,
@@ -62,7 +67,8 @@ export const productList = [
 
   },
   {
-    id: '686b763cfff2f89664393c03',
+    id:6,
+    _id: '686b763cfff2f89664393c03',
     name: "HAVIT HV-G92 Gamepad",
     image: Sale1,
     price: 120,
@@ -73,7 +79,8 @@ export const productList = [
 
   },
   {
-    id: '686b763cfff2f89664393c0b',
+    id:7,
+    _id: '686b763cfff2f89664393c0b',
     name: "AK-900 Wired Keyboard",
     image: sale2,
     price: 980,
@@ -82,7 +89,8 @@ export const productList = [
     cat: "Sales"
 
   },{
-    id: '686b763cfff2f89664393c0e',
+    id:8,
+    _id: '686b763cfff2f89664393c0e',
     name: "IPS LCD Gaming Monitor",
     image: sale3,
     price: 380,
@@ -91,7 +99,8 @@ export const productList = [
     cat: "Sales"
 
   },{
-    id: '686b763cfff2f89664393c11',
+    id:9,
+    _id: '686b763cfff2f89664393c11',
     name: "S-Series Comfort Chair",
     image: sale5,
     price: 335,
@@ -100,7 +109,8 @@ export const productList = [
     cat: "Sales"
 
   },{
-    id: '686b763cfff2f89664393c14',
+    id:10,
+    _id: '686b763cfff2f89664393c14',
     name: "New Product",
     image: sale5,
     price: 180,

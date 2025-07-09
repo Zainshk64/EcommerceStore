@@ -10,7 +10,7 @@ const Checkout = () => {
   const dispatch = useDispatch();
 
   const items = cartItems.map((item) => ({
-    productId: item.id.toString(), // 🔥 ensure it's a string
+    productId: item._id.toString(), // 🔥 ensure it's a string
     quantity: item.quantity,
     size: item.size || "M", // default if size not selected
   }));
