@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DynamicBreadcrumbs from "./DynamicBread";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { clearCart } from "../features/cart/cartSlice";
 
 const Checkout = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const dispatch = useDispatch();
 
   const items = cartItems.map((item) => ({
     productId: item.id.toString(), // 🔥 ensure it's a string
@@ -74,6 +76,7 @@ const Checkout = () => {
 
       if (res.ok) {
         toast.success(data.message || "Order placed successfully");
+        dispatch(clearCart());         
         navigate("/");
       } else {
         toast.error(data.message || "Failed to place order");
@@ -242,7 +245,7 @@ const Checkout = () => {
             <button
               type="submit"
               onClick={handleOrder}
-              className="w-full mt-4 bg-red-500 text-white py-2 rounded hover:bg-red-600"
+              className="w-full mt-4 bg-red-500 cursor-pointer active:scale-105 text-white py-2 rounded hover:bg-red-600"
             >
               Place Order
             </button>

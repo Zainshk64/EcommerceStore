@@ -11,7 +11,7 @@ const AccountInfo = () => {
 
           <DynamicBreadcrumbs />
           <div>
-            {User.firstName}
+            {/* {User.firstName} */}
 
           </div>
         </div>
