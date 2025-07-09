@@ -13,7 +13,7 @@ export default function DynamicBreadcrumbs() {
   const pathnames = location.pathname.split('/').filter((x) => x);
 
   return (
-    <div className="py-10">
+    <div className="">
       <Breadcrumbs aria-label="breadcrumb">
         <Link component={RouterLink} to="/" underline="hover" color="inherit">
           Home

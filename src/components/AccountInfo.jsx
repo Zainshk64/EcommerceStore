@@ -2,17 +2,19 @@ import React from 'react'
 import DynamicBreadcrumbs from './DynamicBread'
 
 const AccountInfo = () => {
-    const User = localStorage.getItem('user');
-    console.log(User);
+    const User = JSON.parse(localStorage.getItem('user'))
+    const UserName = `${User.firstName} ${User.lastName} `
     
   return (
        <div className="px-4 md:px-16 lg:px-24 xl:px-32">
-        <div>
+        <div className='flex py-10 justify-between' >
 
           <DynamicBreadcrumbs />
-          <div>
-            {/* {User.firstName} */}
-
+          <div className='text-md'>
+            Welcome 
+            <span className='text-red-500 font-medium ml-2 uppercase '  >
+              {UserName}  
+              </span>
           </div>
         </div>
     </div>

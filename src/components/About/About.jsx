@@ -4,8 +4,11 @@ import DynamicBreadcrumbs from "../DynamicBread";
 import aboutimg from "../../assets/aboutimg.jpg";
 const About = () => {
   return (
-    <div className="px-4 md:px-16 lg:px-24 xl:px-32">
+    <div className="px-4  md:px-16 lg:px-24 xl:px-32">
+      <div className="py-10" >
+
       <DynamicBreadcrumbs />
+      </div>
       <div className="flex py-5 md:flex-row  flex-col justify-between items-center" >
         <div className="w-full mb-5 md:w-1/2" >
           <h1 className="font-medium text-4xl">Our Story</h1>

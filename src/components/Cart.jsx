@@ -20,7 +20,11 @@ const Cart = () => {
 
   return (
     <div className="px-4 md:px-16 lg:px-24 xl:px-32">
+      <div className="py-10" >
+
+
       <DynamicBreadcrumbs />
+      </div>
       <h1 className="text-2xl font-bold mb-6">Shopping Cart</h1>
 
       {/* Responsive Table */}
