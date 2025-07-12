@@ -24,10 +24,10 @@ const Faq = () => {
     ]
     return (
         <div className='px-6 sm:py-10 md:px-16 lg:px-24 xl:px-32'>
-            <div className='grid grid-cols-1 lg:grid-cols-3 py-7 sm:py-20' >
+            <div className='grid grid-cols-1 md:grid-cols-3 py-7 sm:py-20' >
                 {
                     faq.map((item, index) => (
-                        <div key={index} className='text-center mb-10 sm:mb-0  flex flex-col justify-center items-center '>
+                        <div key={index} className='text-center mb-10 sm:mb-0 flex flex-col justify-center items-center '>
                             <div className='p-3 bg-gray-300 h-14 w-14 group  flex justify-center items-center rounded-full'>
                                 <div className='bg-black p-2 h-10 w-10 group-hover:h-14 group-hover:w-14 group-hover:p-4 trans cursor-pointer rounded-full text-white'>
                                     {item.icon}

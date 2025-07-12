@@ -28,7 +28,7 @@ const AboutUs = () => {
     ]
     return (
         <div className='px-4 md:px-16 lg:px-24 xl:px-32'>
-            <div className='grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-10 py-7 sm:py-20' >
+            <div className='grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-10 py-7 sm:py-20' >
                 {
                     faq.map((item, index) => (
                         <div key={index} className='text-center group px-5 py-4 mb-10 border  hover:-translate-y-2 border-black/40 sm:mb-0 hover:bg-red-500 trans flex flex-col justify-center items-center '>

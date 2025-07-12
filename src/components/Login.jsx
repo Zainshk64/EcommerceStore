@@ -263,7 +263,7 @@ const Login = () => {
         </div>
       )}
 
-      <div className="flex p-5 lg:flex-row flex-col justify-evenly">
+      <div className="flex p-5 md:flex-row flex-col items-center justify-evenly">
         <div className="sm:w-1/2 mx-auto md:w-3/5 ">
           <img src={loginBanner} alt="" />
         </div>

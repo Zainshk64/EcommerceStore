@@ -8,7 +8,7 @@ import google from '../assets/google.png'
 const Footer = () => {
   return (
     <div className='px-4 bg-black text-white md:px-16 lg:px-24 xl:px-32' >
-      <div className='sm:py-20 pt-10 md:pt-20 grid grid-cols-1  md:grid-cols-2 lg:grid-cols-5 gap-8'>
+      <div className='sm:py-20 pt-10 md:pt-20 grid grid-cols-1  md:grid-cols-2 md:grid-cols-5 gap-8'>
         <div>
           <h1 className='font-medium text-2xl mb-5'>Exclusive</h1>
           <div className='space-y-3'>
