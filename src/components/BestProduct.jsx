@@ -11,6 +11,7 @@ import { addToCart } from "../features/cart/cartSlice";
 import { toggleWishlist } from "../features/wishlist/wishlistSlice";
 import { productList } from "../data/data";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const BestProduct = () => {
   const dispatch = useDispatch();
@@ -85,8 +86,9 @@ const BestProduct = () => {
                     />
                   </div>
                   <div className="p-2 bg-white rounded-full">
-                    <Eye className="w-5 h-5 text-gray-600 hover:text-blue-500 cursor-pointer" />
-                  </div>
+ <Link to={`/product/${product.id}`}>
+                      <Eye className="w-5 h-5 text-gray-600 hover:text-blue-500 cursor-pointer" />
+                    </Link>                  </div>
                 </div>
                 <div
                   onClick={() => handleAddCart(product)}

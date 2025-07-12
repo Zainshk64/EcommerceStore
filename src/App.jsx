@@ -37,6 +37,8 @@ const AppRoutes = () => {
         <Route path="/myaccount" element={<AccountPage/>} />
         <Route path="/product/:id" element={<ItemDetail />} />
         <Route path="/cart/checkout" element={<CheckoutPage/>} />
+        <Route path="/myaccount/wishlist" element={<WishlistPage />} />
+
 
         <Route path="/*" element={<NotFound />} />
       </Routes>
