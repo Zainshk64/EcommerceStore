@@ -17,7 +17,10 @@ const AccountInfo = () => {
           </span>
         </div>
       </div>
+      <div className="py-10" >
+
       <UserTabs/>
+      </div>
     </div>
   );
 };

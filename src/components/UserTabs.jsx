@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import CancelOrder from "./UserCard/CancelOrder";
 
 const tabs = [
   {
@@ -71,6 +72,11 @@ const UserTabs = () => {
   };
 
   const renderForm = () => {
+    if (activeTab === "My Cancellations") {
+      return <CancelOrder/>
+    }
+
+
     if (activeTab === "My Profile") {
       return (
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -114,15 +120,15 @@ const UserTabs = () => {
           </div>
 
           <div className="flex justify-end gap-4 pt-3">
-            <button
+            {/* <button
               type="button"
               className="px-4 py-2 rounded border border-gray-400 hover:bg-gray-100"
             >
               Cancel
-            </button>
+            </button> */}
             <button
               type="submit"
-              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              className="px-4 py-2 cursor-pointer bg-red-500 text-white rounded hover:bg-red-600"
             >
               Save Changes
             </button>
@@ -145,7 +151,7 @@ const UserTabs = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row px-4 md:px-16 lg:px-24 xl:px-32 py-10 gap-10">
+    <div className="flex flex-col md:flex-row gap-10">
       {/* Left Tabs */}
       <div className="w-full md:w-1/4">
         <ul className="space-y-6">

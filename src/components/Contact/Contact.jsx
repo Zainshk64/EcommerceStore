@@ -22,7 +22,7 @@ const Contact = () => {
               <p className="text-xl" >Call to use</p>
             </div>
             <p className="text-gray-500" >
-              We are available 24/7, 7 days a week. <br /> Phone: 02080894{" "}
+              We are available 24/7, 7 days a week. <br /> Phone: 03028090100{" "}
             </p>
           </div>
            <div  className="pt-5" >
@@ -34,7 +34,7 @@ const Contact = () => {
               <p className="text-xl" >Write to Us</p>
             </div>
             <p className="text-gray-500" >
-              Fill out our form and we will contact you within 24 hours.<br /> Emails: customer@exclusive.com{" "}
+              Fill out our form and we will contact you within 24 hours.<br /> Emails: zshk599@gmail.com{" "}
             </p>
           </div>
         </div>

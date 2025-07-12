@@ -1,6 +1,17 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Heart, Search, ShoppingCart, Menu, X, User, LogOut, ListOrdered, Ban, Star } from "lucide-react";
+import {
+  Heart,
+  Search,
+  ShoppingCart,
+  Menu,
+  X,
+  User,
+  LogOut,
+  ListOrdered,
+  Ban,
+  Star,
+} from "lucide-react";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
@@ -18,12 +29,11 @@ const Navbar = () => {
     { link: "Contact", path: "/contact" },
     { link: "Sign Up", path: "/signup" },
   ];
-   const userLinks = [
+  const userLinks = [
     { link: "Manage My Account", path: "/myaccount" },
     { link: "My Orders", path: "/" },
     { link: "My Cancellations", path: "/" },
     { link: "My Reviews", path: "/" },
-
   ];
 
   const cartCount = useSelector((state) => state.cart.cartItems.length);
@@ -46,12 +56,9 @@ const Navbar = () => {
 
   // const User = JSON.parse(localStorage.getItem("user"));
   // console.log(User.firstName);
-  
-  const UserData = JSON.parse(localStorage.getItem("user"));
+
+  // const UserData = JSON.parse(localStorage.getItem("user"));
   // console.log(UserData.firstName);
-  
-
-
 
   return (
     <nav className="px-4 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-neutral-300 relative">
@@ -105,29 +112,40 @@ const Navbar = () => {
                 </div>
 
                 <div className="block md:flex relative ml-4" ref={dropdownRef}>
-
                   <User
                     className="w-6 h-6 cursor-pointer hover:scale-110 transition"
                     onClick={() => setDropdownOpen(!dropdownOpen)}
-                    />
+                  />
                   {dropdownOpen && (
-                    <div className="absolute right-0 top-8 bg-white border shadow-lg rounded w-48 z-50 text-sm">
+                    <div className="absolute right-0 top-10 backdrop-blur-3xl bg-gradient-to-l from-gray-200 to-gray-300 border shadow-lg rounded w-48 z-50 text-sm">
                       <ul className="py-2">
-                        <Link  to={'/myaccount'} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+                        <Link
+                          to={"/myaccount"}
+                          className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
+                        >
                           <User size={16} /> Manage My Account
                         </Link>
-                        <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
-                          <ListOrdered size={16} /> My Orders
-                        </li>
-                        <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+                        <Link
+                          to={"/orders"}
+                          className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
+                        >
+                          <ListOrdered size={16} /> Orders
+                        </Link>
+                      
+                         <Link
+                          to={"/cancelorders"}
+                          className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
+                        >
                           <Ban size={16} /> My Cancellations
-                        </li>
+                        </Link>
+                        
+                        
                         <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
                           <Star size={16} /> My Reviews
                         </li>
                         <li
                           className="flex items-center gap-2 px-4 py-2 text-red-500 hover:bg-gray-100 cursor-pointer"
-                          onClick={()=>handleLogout()}
+                          onClick={() => handleLogout()}
                         >
                           <LogOut size={16} /> Logout
                         </li>
@@ -142,9 +160,15 @@ const Navbar = () => {
 
         <div className="md:hidden">
           {menuOpen ? (
-            <X className="w-7 h-7 cursor-pointer" onClick={() => setMenuOpen(false)} />
+            <X
+              className="w-7 h-7 cursor-pointer"
+              onClick={() => setMenuOpen(false)}
+            />
           ) : (
-            <Menu className="w-7 h-7 cursor-pointer" onClick={() => setMenuOpen(true)} />
+            <Menu
+              className="w-7 h-7 cursor-pointer"
+              onClick={() => setMenuOpen(true)}
+            />
           )}
         </div>
       </div>
@@ -166,60 +190,69 @@ const Navbar = () => {
           )}
 
           <div className="flex gap-6 mx-auto pt-2">
-            <div className="relative">
-              <Link to="/wishlist">
-                <Heart className="w-6 h-6 cursor-pointer hover:scale-110 transition" />
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] h-4 w-4 flex items-center justify-center rounded-full">
-                  {wishlistCount}
-                </span>
-              </Link>
-            </div>
-
-            <div className="relative ml-4">
-              <Link to="/cart">
-                <ShoppingCart className="w-6 h-6 cursor-pointer hover:scale-110 transition" />
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] h-4 w-4 flex items-center justify-center rounded-full">
-                  {cartCount}
-                </span>
-              </Link>
-            </div>
-
             {token && (
-              <div className="relative ml-4" ref={dropdownRef}>
-                <div>
-
-                <User
-                  className="w-6 h-6 cursor-pointer hover:scale-110 transition"
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                />
-                <p>{UserName}</p>
+              <>
+                <div className="relative">
+                  <Link to="/wishlist">
+                    <Heart className="w-6 h-6 cursor-pointer hover:scale-110 transition" />
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] h-4 w-4 flex items-center justify-center rounded-full">
+                      {wishlistCount}
+                    </span>
+                  </Link>
                 </div>
 
-                {dropdownOpen && (
-                  <div className="absolute right-0 top-8 bg-white border shadow-lg rounded w-48 z-50 text-sm">
-                    <ul className="py-2">
-                      <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
-                        <User size={16} /> Manage My Account
-                      </li>
-                      <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
-                        <ListOrdered size={16} /> My Orders
-                      </li>
-                      <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
-                        <Ban size={16} /> My Cancellations
-                      </li>
-                      <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
-                        <Star size={16} /> My Reviews
-                      </li>
-                      <li
-                        className="flex items-center gap-2 px-4 py-2 text-red-500 hover:bg-gray-100 cursor-pointer"
-                        onClick={handleLogout}
-                      >
-                        <LogOut size={16} /> Logout
-                      </li>
-                    </ul>
+                <div className="relative ml-4">
+                  <Link to="/cart">
+                    <ShoppingCart className="w-6 h-6 cursor-pointer hover:scale-110 transition" />
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] h-4 w-4 flex items-center justify-center rounded-full">
+                      {cartCount}
+                    </span>
+                  </Link>
+                </div>
+
+                <div className="relative ml-4" ref={dropdownRef}>
+                  <div>
+                    <User
+                      className="w-6 h-6 cursor-pointer hover:scale-110 transition"
+                      onClick={() => setDropdownOpen(!dropdownOpen)}
+                    />
                   </div>
-                )}
-              </div>
+
+                  {dropdownOpen && (
+                    <div className="absolute right-0 top-8 bg-white border shadow-lg rounded w-48 z-50 text-sm">
+                      <ul className="py-2">
+                        <Link
+                          to={"/myaccount"}
+                          className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
+                        >
+                          <User size={16} /> Manage My Account
+                        </Link>
+                        <Link
+                          to={"/orders"}
+                          className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
+                        >
+                          <ListOrdered size={16} /> Orders
+                        </Link>
+                        <Link
+                          to={"/cancelorders"}
+                          className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
+                        >
+                          <Ban size={16} /> My Cancellations
+                        </Link>
+                        <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+                          <Star size={16} /> My Reviews
+                        </li>
+                        <li
+                          className="flex items-center gap-2 px-4 py-2 text-red-500 hover:bg-gray-100 cursor-pointer"
+                          onClick={handleLogout}
+                        >
+                          <LogOut size={16} /> Logout
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </>
             )}
           </div>
         </div>
