@@ -75,6 +75,9 @@ const Checkout = () => {
       const data = await res.json();
 
       if (res.ok) {
+        if(data.sessionUrl){
+          window.location.href = data.sessionUrl;
+        }
         toast.success(data.message || "Order placed successfully");
         dispatch(clearCart());         
         navigate("/");
@@ -198,7 +201,7 @@ const Checkout = () => {
                 <input
                   type="radio"
                   name="paymentMethod"
-                  value="bank"
+                  value="card"
                   onChange={handleInputChange}
                 />
                 <span>Bank</span>

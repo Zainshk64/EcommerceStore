@@ -50,7 +50,6 @@ export default function ProductDetail() {
       toast.error("Login First!");
     } else {
       dispatch(addToCart(product));
-      toast.success(`${product.name} add to Favorite`);
     }
   };
     const handleWishlist = (product) => {
@@ -58,7 +57,6 @@ export default function ProductDetail() {
         toast.error("Login First!");
       } else {
         dispatch(toggleWishlist(product));
-        toast.success(`${product.name} add to Favorite`);
       }
     };
 
